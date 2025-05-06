@@ -20,15 +20,19 @@ const firebaseConfig = {
 let db: ReturnType<typeof getFirestore>
 
 // Initialize Firebase
-try {
-  const app = initializeApp(firebaseConfig)
-  db = getFirestore(app)
-  
-  const auth = getAuth(app)
-  await signInAnonymously(auth)
-} catch (error) {
-  console.error('Error initializing Firebase:', error)
-  throw error
+const initializeFirebase = async () => {
+  try {
+    const app = initializeApp(firebaseConfig)
+    db = getFirestore(app)
+    const auth = getAuth(app)
+    await signInAnonymously(auth)
+  } catch (error) {
+    console.error('Error initializing Firebase:', error)
+    throw error
+  }
 }
+
+// Initialize Firebase immediately
+initializeFirebase()
 
 export { db }
